@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CaciqueCI</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Cacique</string>
+    <string name="nav_header_subtitle">Control Interno</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_setting">Settings</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_supermarket">Super Mercado</string>
+    <string name="menu_customers">Clientes</string>
+    <string name="menu_sell_point">Puntos de Ventas</string>
+    <string name="menu_sell_additional">Adiocional</string>
+    <string name="action_bulk">Volcado de datos</string>
+</resources>

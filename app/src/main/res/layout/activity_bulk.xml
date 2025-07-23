@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="onClickScan"
+    tools:context=".ui.bulk.BulkActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Tipo Inventario"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerTipoInventario"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:minHeight="40dp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Inventario Activo"
+            android:textStyle="bold" />
+
+
+        <Spinner
+            android:id="@+id/spinnerInventarioActivo"
+            android:textColor="@color/spinner_text_color"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:minHeight="40dp" />
+
+        <Button
+            android:id="@+id/btnBulk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Bulk" />
+    </LinearLayout>
+</ScrollView>

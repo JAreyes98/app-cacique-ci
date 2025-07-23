@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.cacique.caciqueci.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_supermarket"
+        android:name="com.cacique.caciqueci.ui.supermarket.SupermarketFragment"
+        android:label="@string/menu_supermarket" />
+
+    <fragment
+        android:id="@+id/nav_customer"
+        android:name="com.cacique.caciqueci.ui.customer.CustomerFragment"
+        android:label="@string/menu_customers"
+        tools:layout="@layout/fragment_customers" />
+
+    <fragment
+        android:id="@+id/nav_sell_points"
+        android:name="com.cacique.caciqueci.ui.sellpoint.SellpointFragment"
+        android:label="@string/menu_sell_point" />
+
+    <fragment
+        android:id="@+id/nav_additional"
+        android:name="com.cacique.caciqueci.ui.additional.AdditionalFragment"
+        android:label="@string/menu_sell_additional" />
+</navigation>
