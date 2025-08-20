@@ -1,6 +1,5 @@
 package com.cacique.caciqueci.ui.bulk
 
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -34,8 +33,8 @@ class BulkActivity : AppCompatActivity(), CatalogCallBack, ActivityRequestCode {
     private val inventarioActivoService = RetrofitFactory.createService(InventarioActivoService::class.java)
     private val inventoryService = RetrofitFactory.createService(InventoryService::class.java)
 
-    private var inventarioActivo: InventarioActivo? = null
-    private var tipoInventario: TipoInventario? = null
+    private var selectedInventarioActivo: InventarioActivo? = null
+    private var selectedTipoInventario: TipoInventario? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +47,9 @@ class BulkActivity : AppCompatActivity(), CatalogCallBack, ActivityRequestCode {
         val spinnerInventarioActivo = findViewById<Spinner>(R.id.spinnerInventarioActivo)
         spinnerInventarioActivo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                inventarioActivo = parent.getItemAtPosition(position) as InventarioActivo
+                selectedInventarioActivo = parent.getItemAtPosition(position) as InventarioActivo
                 buttonBulk.isEnabled = true
-                Toast.makeText(applicationContext, inventarioActivo?.id_Inventario.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, selectedInventarioActivo?.id_Inventario.toString(), Toast.LENGTH_LONG).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -60,10 +59,10 @@ class BulkActivity : AppCompatActivity(), CatalogCallBack, ActivityRequestCode {
         val spinnerTipo = findViewById<Spinner>(R.id.spinnerTipoInventario)
         spinnerTipo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                tipoInventario = parent.getItemAtPosition(position) as TipoInventario
-                Toast.makeText(applicationContext, tipoInventario?.id_tipo_inventario.toString(), Toast.LENGTH_LONG).show()
+                selectedTipoInventario = parent.getItemAtPosition(position) as TipoInventario
+                Toast.makeText(applicationContext, selectedTipoInventario?.id_tipo_inventario.toString(), Toast.LENGTH_LONG).show()
 
-                inventarioActivoService.obtenerInventarioActivo(tipoInventario!!.id_tipo_inventario)
+                inventarioActivoService.obtenerInventarioActivo(selectedTipoInventario!!.id_tipo_inventario)
                     .enqueue(catalogCallbackList(
                         InventarioActivoAdapter::class.java,
                         applicationContext,
@@ -127,7 +126,7 @@ class BulkActivity : AppCompatActivity(), CatalogCallBack, ActivityRequestCode {
         }
         cursor2.close()
 
-        //Customer
+        //Sell point
         items.add(BulkItem(StoreCode.SELLPOINT.code))
         val cursor3 = db.rawQuery("SELECT id, barcode, timestamp FROM scanned_items where prefix ='${StoreCode.SELLPOINT.code}' ORDER BY id DESC", null)
         while (cursor3.moveToNext()) {
@@ -136,7 +135,7 @@ class BulkActivity : AppCompatActivity(), CatalogCallBack, ActivityRequestCode {
         }
         cursor3.close()
 
-        //Customer
+        //Additional
         items.add(BulkItem(StoreCode.ADDITIONAL.code))
         val cursor4 = db.rawQuery("SELECT id, barcode, timestamp FROM scanned_items where prefix ='${StoreCode.ADDITIONAL.code}' ORDER BY id DESC", null)
         while (cursor4.moveToNext()) {
@@ -145,8 +144,8 @@ class BulkActivity : AppCompatActivity(), CatalogCallBack, ActivityRequestCode {
         }
 
         val request = BulkRequest().apply {
-            tipoInventario = tipoInventario ?: ""
-            inventarioActivo = inventarioActivo
+            tipoInventario = selectedTipoInventario?.id_tipo_inventario
+            inventarioActivo = selectedInventarioActivo?.id_Inventario?.toInt() ?: 0
             setItems(items)
         }
         cursor4.close()
