@@ -106,30 +106,36 @@ abstract class BaseScannerFragment<VB : ViewBinding> : Fragment() {
         return UUID.randomUUID().toString().substring(0, 8)
     }
 
-    class ScannedItemAdapter(private var items: List<ScannedItem>) :
-        RecyclerView.Adapter<ScannedItemAdapter.ViewHolder>() {
+    class ScannedItemAdapter(
+        private var items: List<ScannedItem>,
+        private val numberTopToBottom: Boolean = true // if false, last item = 1
+    ) : RecyclerView.Adapter<ScannedItemAdapter.ViewHolder>() {
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val barcodeText: TextView = itemView.findViewById(android.R.id.text1)
+            val indexText: TextView = itemView.findViewById(R.id.tvIndex)
+            val barcodeText: TextView = itemView.findViewById(R.id.tvBarcode)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(android.R.layout.simple_list_item_1, parent, false)
+                .inflate(R.layout.item_scanned, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.barcodeText.text = items[position].barcode
+            val item = items[position]
+            val displayNumber = items.size - position   // oldest = 1, newest = N
+            holder.barcodeText.text = "$displayNumber - ${item.barcode}"
         }
 
         override fun getItemCount(): Int = items.size
 
         fun updateItems(newItems: List<ScannedItem>) {
-            items = newItems
+            items = newItems.sortedBy { it.id }  // or it.timestamp if you have it
             notifyDataSetChanged()
         }
     }
+
 
     override fun onResume() {
         super.onResume()

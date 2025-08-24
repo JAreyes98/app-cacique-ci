@@ -59,6 +59,7 @@ class BulkActivity : AppCompatActivity(), CatalogCallBack, ActivityRequestCode {
         val spinnerTipo = findViewById<Spinner>(R.id.spinnerTipoInventario)
         spinnerTipo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                Toast.makeText(applicationContext, "Tipo invetario selected ", Toast.LENGTH_LONG)
                 selectedTipoInventario = parent.getItemAtPosition(position) as TipoInventario
                 Toast.makeText(applicationContext, selectedTipoInventario?.id_tipo_inventario.toString(), Toast.LENGTH_LONG).show()
 
